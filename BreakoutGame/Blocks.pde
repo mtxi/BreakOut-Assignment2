@@ -1,6 +1,6 @@
 /* Block class */
 
-class Block
+class Blocks
 {
     float blockWidth;
     float blockHeight;
@@ -10,7 +10,7 @@ class Block
     int maxHits = 1;
     int hits=maxHits;
     
-    Blocks(float x, float y, float Width; float Height; color Color)
+    Blocks(float x, float y, float Width, float Height, color Color)
     {
         blockX = x;
         blockY = y;
@@ -22,7 +22,8 @@ class Block
     // how to draw the block on the screen
     void draw()
     {
-        noStroke();
+        strokeWeight(2);
+        stroke(255, 150, 0, 25);
         fill(blockColor);
         rect(blockX,blockY,blockWidth,blockHeight);
     }
@@ -70,7 +71,7 @@ class Block
     }
     
     // boolean if it collides with ball
-    boolean collidesWidth(Ball b)
+    boolean collidesWith(Ball b)
     {
         // collides with bottom of block
         if ((b.ballX + b.ballWidth/4 > blockX && b.ballX - b.ballWidth/4 < blockX+blockWidth)
@@ -91,7 +92,7 @@ class Block
         }
         
         // collides with left side of the block
-        else if (b.ballY + b.ballWidth/4 > blockY && b.ballY - b.ballWidth/4 < blockY+blockHeight) 
+        else if ((b.ballY + b.ballWidth/4 > blockY && b.ballY - b.ballWidth/4 < blockY+blockHeight) 
         && (b.ballX + b.ballWidth/2 > blockX && b.ballX + b.ballWidth/2 < blockX + blockWidth))
         {
             b.speedX =- abs(b.speedX);
@@ -100,7 +101,7 @@ class Block
         }
         
         // colliding with right side of block
-        if (b.ballY + b.ballWidth/4 > blockY && b.ballY - b.ballWidth/4 < blockY+blockHeight) 
+        if ((b.ballY + b.ballWidth/4 > blockY && b.ballY - b.ballWidth/4 < blockY+blockHeight) 
         && (b.ballX - b.ballWidth/2 < blockX+blockWidth && b.ballX - b.ballWidth/2 > blockX))
         {
             b.speedX =- abs(b.speedX);

@@ -55,7 +55,7 @@ class Ball
         ballY+=speedY;
     }
     
-    void move(int X, int Y);
+    void move(int X, int Y)
     {
         ballX = X;
         ballY = Y;

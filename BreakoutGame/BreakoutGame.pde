@@ -1,11 +1,20 @@
-// display size
+/* Code for the classic arcade game Break Out Game */
+
 int winW = 500; // width
 int winH = 500; // height 
 
+// initialise elements of gameplay
 int score = 0;
 int lives = 3;
+int mode = 0;
+float centX, centY;
 
-
+void setup()
+{
+    size(winW, winH);
+    background(0);
+    setupBricks();
+}
 // bricks variables
 int brickSpace = 5;
 int numBricks = 5;
@@ -20,46 +29,59 @@ color brickColors[] = {color(255,0,0), color(255, 125, 0), color(255,255,0),
                 
 color brickColor = color(255, 255, 0);
 
-ArrayList<Block> BagOfBricks = new ArrayList<Block>();
+ArrayList<Blocks> BagOfBricks = new ArrayList<Blocks>();
 
-// Ball
+// initialise variables for controlling Ball object
 int ballWidth = 16;
 float ballStartX = random(winW);
 float ballStartY = winH/2;
 color ballColor = color(255, 0, 0);
-Ball bawl = new Ball(ballStartX, ballStartY, ballWidth, ballColor);
+Ball b = new Ball(ballStartX, ballStartY, ballWidth, ballColor);
 
-// Paddle
+// variables for controlling the paddle
 int paddleX = winW / 2;
 int paddleY = winH - 50;
 int paddleHeight = 20;
 int paddleWidth = 70;
 color paddleColor = color(255,0,255);
 
-Block paddle = new Block(paddleX, paddleY, paddleWidth, paddleHeight, paddleColor);
-
-void setup()
-{
-    size(winW, winH);
-    background(255);
-    setupBricks();
-}
+Blocks paddle = new Blocks(paddleX, paddleY, paddleWidth, paddleHeight, paddleColor);
 
 void draw()
 {
-    if (lives>0)
+    switch (mode)
     {
-        background(255);
-        drawBricks();
-        drawBall();
-        drawPaddle();
-        drawText();
-        
+        case 0:  // if lose, press 0 to go back to main screen
+          mainScreen();
+          // reset everything
+          score = 0;
+          lives = 3;
+          break;
+        case 1:  // press 1 to play
+          if (lives>0)
+          {
+              background(0);
+              drawBricks();
+              drawBall();
+              drawPaddle();
+              drawText();
+              
+          }
+          else
+          {
+              drawLose();
+          }
+          break;
     }
-    else
+}
+
+void keyPressed()
+{
+    if (key >= '0' && key <= '9')
     {
-        drawLose();
+        mode = key - '0';
     }
+    println(mode);
 }
 
 // initialise all bricks
@@ -69,10 +91,10 @@ void setupBricks()
     {
         for (int rowNo = 0; rowNo < numBricks; rowNo++)
         {
-            float brickX = brickNo*(brickWidth+spaceBricks);
-            float brickY = spaceCeling + rowNo*(brickHeight+spaceBricks);
+            float brickX = brickNo*(brickWidth+brickSpace);
+            float brickY = spaceCeiling + rowNo*(brickHeight+brickSpace);
             color brickColor = (brickColors[rowNo]);
-            BagOfBricks.ad(new Block(brickX, brickY, brickWidth, brickHeight, brickColor));
+            BagOfBricks.add(new Blocks(brickX, brickY, brickWidth, brickHeight, brickColor));
         }
     }
     
@@ -83,11 +105,11 @@ void drawBricks()
 {
     for (int brickNo = BagOfBricks.size()-1; brickNo>=0; brickNo--)
     {
-        Block brick = BagofBricks.get(brickNo);
+        Blocks brick = BagOfBricks.get(brickNo);
         brick.draw();
-        if (brick.collidesWith(bawl))
+        if (brick.collidesWith(b))
         {
-            BasketOfBricks.remove(brick);
+            BagOfBricks.remove(brick);
             score+=10;
         }
     }
@@ -96,12 +118,12 @@ void drawBricks()
 // draw ball
 void drawBall()
 {
-    bawl.update();
-    bawl.draw();
-    if (bawl.checkWallCollision())
+    b.update();
+    b.draw();
+    if (b.checkWallCollision())
     {
         lives --;
-        bawl.move(width/2, height/2);
+        b.move(width/2, height/2);
     }
 }
 
@@ -109,7 +131,7 @@ void drawPaddle()
 {
     paddle.draw();
     paddle.move(mouseX, paddleY);
-    paddle.collideWith(bawl);
+    paddle.collidesWith(b);
 }
 
 // textu
@@ -124,6 +146,25 @@ void drawText()
         displayText("Winner", width/2, height/2, true);
     }
 }
+
+// function for creating text in main screen
+void titleText(String text, float size, float y)
+{
+    float x = width * 0.5f;
+    text(text, x, y);
+}
+
+void mainScreen()
+{
+    centX = width/2;
+    centY = height/2;
+    background(200,208,247);
+    fill(255);
+    textAlign(CENTER);
+    titleText("BREAKOUT GAME",50,100);
+    fill(173,187,255);
+}
+
 
 void displayText(String message, int x, int y, boolean Centered)
 {
