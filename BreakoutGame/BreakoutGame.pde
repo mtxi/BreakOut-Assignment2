@@ -1,19 +1,21 @@
 /* Code for the classic arcade game Break Out Game */
 
-int winW = 500; // width
-int winH = 500; // height 
+int winW = 700; // width
+int winH = 700; // height 
 
 // initialise elements of gameplay
 int score = 0;
 int lives = 3;
 int mode = 0;
 float centX, centY;
+PFont font;
 
 void setup()
 {
     size(winW, winH);
     background(0);
     setupBricks();
+    font = loadFont("JuiceITC-Regular-48.vlw");
 }
 // bricks variables
 int brickSpace = 5;
@@ -29,7 +31,7 @@ color brickColors[] = {color(255,0,0), color(255, 125, 0), color(255,255,0),
                 
 color brickColor = color(255, 255, 0);
 
-ArrayList<Blocks> BagOfBricks = new ArrayList<Blocks>();
+ArrayList<Bricks> BagOfBricks = new ArrayList<Bricks>();
 
 // initialise variables for controlling Ball object
 int ballWidth = 16;
@@ -45,7 +47,7 @@ int paddleHeight = 20;
 int paddleWidth = 70;
 color paddleColor = color(255,0,255);
 
-Blocks paddle = new Blocks(paddleX, paddleY, paddleWidth, paddleHeight, paddleColor);
+Bricks paddle = new Bricks(paddleX, paddleY, paddleWidth, paddleHeight, paddleColor);
 
 void draw()
 {
@@ -56,6 +58,7 @@ void draw()
           // reset everything
           score = 0;
           lives = 3;
+          
           break;
         case 1:  // press 1 to play
           if (lives>0)
@@ -81,6 +84,7 @@ void keyPressed()
     {
         mode = key - '0';
     }
+ 
     println(mode);
 }
 
@@ -94,7 +98,7 @@ void setupBricks()
             float brickX = brickNo*(brickWidth+brickSpace);
             float brickY = spaceCeiling + rowNo*(brickHeight+brickSpace);
             color brickColor = (brickColors[rowNo]);
-            BagOfBricks.add(new Blocks(brickX, brickY, brickWidth, brickHeight, brickColor));
+            BagOfBricks.add(new Bricks(brickX, brickY, brickWidth, brickHeight, brickColor));
         }
     }
     
@@ -105,7 +109,7 @@ void drawBricks()
 {
     for (int brickNo = BagOfBricks.size()-1; brickNo>=0; brickNo--)
     {
-        Blocks brick = BagOfBricks.get(brickNo);
+        Bricks brick = BagOfBricks.get(brickNo);
         brick.draw();
         if (brick.collidesWith(b))
         {
@@ -138,7 +142,7 @@ void drawPaddle()
 void drawText()
 {
     fill(0, 125, 125);
-    displayText("Score: " + score, 0, height, false);
+    displayText("Score: " + score, 0, height, true);
     displayText("Lives: " + lives, 2*width/3, height, false);
     if (BagOfBricks.size()<1)
     {
@@ -150,6 +154,7 @@ void drawText()
 // function for creating text in main screen
 void titleText(String text, float size, float y)
 {
+    textFont(font,40);
     float x = width * 0.5f;
     text(text, x, y);
 }
@@ -158,10 +163,11 @@ void mainScreen()
 {
     centX = width/2;
     centY = height/2;
-    background(200,208,247);
+    background(0);
     fill(255);
     textAlign(CENTER);
     titleText("BREAKOUT GAME",50,100);
+    titleText("based on the classic arcade game",50,200);
     fill(173,187,255);
 }
 
@@ -185,7 +191,7 @@ void drawLose()
     if (BagOfBricks.size()>0)
     {
         fill(255,0,0);
-        displayText("You lose", width/2, height/2, true);
+        displayText("You lose! Try again! ", width/2, height/2, true);
     }
 }
 // TBC ....

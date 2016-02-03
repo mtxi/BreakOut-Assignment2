@@ -1,6 +1,6 @@
 /* Block class */
 
-class Blocks
+class Bricks
 {
     float blockWidth;
     float blockHeight;
@@ -10,7 +10,7 @@ class Blocks
     int maxHits = 1;
     int hits=maxHits;
     
-    Blocks(float x, float y, float Width, float Height, color Color)
+    Bricks(float x, float y, float Width, float Height, color Color)
     {
         blockX = x;
         blockY = y;
