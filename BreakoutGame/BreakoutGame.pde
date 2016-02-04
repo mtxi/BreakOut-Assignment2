@@ -75,6 +75,9 @@ void draw()
               drawLose();
           }
           break;
+          
+        case 2:
+          pause();
     }
 }
 
@@ -184,6 +187,12 @@ void displayText(String message, int x, int y, boolean Centered)
     }
     int textY = y;
     text(name, textX, textY);
+}
+
+void pause()
+{
+    fill(255,0,0);
+    displayText("Pause. Press 1 to resume", width/2, height/2, true);
 }
 
 void drawLose()

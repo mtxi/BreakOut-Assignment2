@@ -59,7 +59,7 @@ class Ball
     {
         ballX = X;
         ballY = Y;
-        speedY = random(1,10);
-        speedX = random(-10, 10);
+        speedY = random(5,10);
+        speedX = random(-5, 10);
     }
 }

@@ -7,7 +7,7 @@ class Bricks
     float blockX;
     float blockY;
     color blockColor;
-    int maxHits = 1;
+    int maxHits = 2;
     int hits=maxHits;
     
     Bricks(float x, float y, float Width, float Height, color Color)
