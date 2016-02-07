@@ -1,7 +1,7 @@
 /* Code for the classic arcade game Break Out Game */
 
-int winW = 700; // width
-int winH = 700; // height 
+int winW = 800; // width
+int winH = 600; // height 
 
 // initialise elements of gameplay
 int score = 0;
@@ -117,7 +117,7 @@ void keyPressed()
 // click to go back to main menu
 void mouseClicked()
 {
-  if (lives == 0)
+  if (lives == 0 || mode == 4)
   {
     mode = 0;
   }
@@ -183,6 +183,7 @@ void drawText()
   {
     fill(0, 125, 0);
     displayText("Winner", width/2, height/2, true);
+    mode = 4;
   }
 }
 
