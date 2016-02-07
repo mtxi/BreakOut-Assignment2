@@ -5,8 +5,8 @@ class Ball
   float ballWidth;
   float ballX, ballY;
   color ballColor;
-  float speedX = random(1, 10);
-  float speedY = random(-10, 10);
+  float speedX = -5;
+  float speedY = -5;
 
   // ball constructor
   Ball(float x, float y, int Width, color Color)
@@ -59,8 +59,8 @@ class Ball
   {
     ballX = X;
     ballY = Y;
-    speedY = random(5, 10);
-    speedX = random(-5, 10);
+    speedY = -5;
+    speedX = -5;
   }
 }
 

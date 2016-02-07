@@ -1,4 +1,10 @@
-/* Code for the classic arcade game Break Out Game */
+/* Code for the classic arcade game Break Out Game - ASSIGNMENT #2 */
+
+/* CONTROLS:
+  - SpaceBar: start game / retry (if lost/won)
+  - SHIFT: pause game / resume (can also use any key to resume)
+  - CLICK: return to main screen (if game is over)
+*/
 
 int winW = 800; // width
 int winH = 600; // height 
@@ -6,17 +12,19 @@ int winH = 600; // height
 // initialise elements of gameplay
 int score = 0;
 int lives = 3;
-int mode = 0;
+static int mode = 0;
 float centX, centY;
 PFont font;
-boolean active = false;
+boolean active = false; // switch if game is active
 
 void setup()
 {
   size(winW, winH);
   background(0);
+  smooth();
   font = loadFont("JuiceITC-Regular-48.vlw");
 }
+
 // bricks variables
 int brickSpace = 5;
 int numBricks = 5;
@@ -58,6 +66,7 @@ void draw()
   if (mode==0)
   {
     mainScreen();
+    // reset if just finished a game
     score = 0;
     lives = 3;
   }
@@ -66,7 +75,7 @@ void draw()
     if (lives>0)
     {
       active = true;
-      background(0);
+      background(6,29,49);
       drawBricks();
       drawBall();
       drawPaddle();
@@ -74,7 +83,9 @@ void draw()
     } 
     else
     {
+      mode = 3;
       drawLose();
+      setupBricks();
     }
    }
    
@@ -87,16 +98,22 @@ void draw()
 void keyPressed()
 {
   // press spacebar to start playing or retry
-  if (key == ' ')
+  // prevents reset of bricks in the middle of a game or when paused
+  while (mode == 3 || mode == 0 || mode == 4)
   {
-    setupBricks();
-    score = 0;
-    lives = 3;
-    mode = 1;
+    if (key == ' ')
+    {
+      setupBricks();
+      score = 0;
+      lives = 3;
+      mode = 1;
+    }
   }
+    
   
   if (active)
   {
+      // press SHIFT to pause game
       if (key==CODED)
       {
         if (keyCode == SHIFT)
@@ -107,7 +124,7 @@ void keyPressed()
       }
       
   }
-  else
+  else // press ANY key to resume game
   {
       mode = 1;
   }
@@ -117,7 +134,7 @@ void keyPressed()
 // click to go back to main menu
 void mouseClicked()
 {
-  if (lives == 0 || mode == 4)
+  if (lives == 0 || mode == 3 || mode == 4)
   {
     mode = 0;
   }
@@ -179,11 +196,12 @@ void drawText()
   fill(0, 125, 125);
   displayText("Score: " + score, 0, height, true);
   displayText("Lives: " + lives, 2*width/3, height, false);
+  
   if (BagOfBricks.size()<1)
   {
     fill(0, 125, 0);
     displayText("Winner", width/2, height/2, true);
-    mode = 4;
+    active = false;
   }
 }
 
