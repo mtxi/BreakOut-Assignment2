@@ -16,6 +16,7 @@ static int mode = 0;
 float centX, centY;
 PFont font;
 boolean active = false; // switch if game is active
+boolean win;
 
 void setup()
 {
@@ -81,18 +82,26 @@ void draw()
       drawPaddle();
       drawText();
     } 
+    else if(BagOfBricks.size()<1)
+    {
+        mode = 4;
+        fill(0, 125, 0);
+        displayText("Winner", width/2, height/2, true);
+        setupBricks();   
+    }
     else
     {
       mode = 3;
       drawLose();
       setupBricks();
     }
-   }
+  }
    
  if (mode==2)
   {
     pause();
   }
+  
 }
 
 void keyPressed()
@@ -164,9 +173,16 @@ void drawBricks()
     brick.draw();
     if (brick.collidesWith(b))
     {
-      BagOfBricks.remove(brick);
+      brick.blockColor = color(random(0,255));
       score+=10;
+      brick.brickOn -= 1;
+      
+      if (brick.retbrickOn() == 0)
+      {
+          BagOfBricks.remove(brick);
+      }
     }
+    
   }
 }
 
@@ -197,12 +213,6 @@ void drawText()
   displayText("Score: " + score, 0, height, true);
   displayText("Lives: " + lives, 2*width/3, height, false);
   
-  if (BagOfBricks.size()<1)
-  {
-    fill(0, 125, 0);
-    displayText("Winner", width/2, height/2, true);
-    active = false;
-  }
 }
 
 // function for creating text in main screen
@@ -260,4 +270,3 @@ void drawLose()
     displayText("You lose! Press spaceBar to retry or click to menu", width/2, height/2, true);
   }
 }
-

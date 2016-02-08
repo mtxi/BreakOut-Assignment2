@@ -9,6 +9,7 @@ class Bricks
   color blockColor;
   int maxHits = 2;
   int hits=maxHits;
+  int brickOn;
 
   Bricks(float x, float y, float Width, float Height, color Color)
   {
@@ -17,13 +18,15 @@ class Bricks
     blockWidth = Width;
     blockHeight = Height;
     blockColor = Color;
+    
+    brickOn = 2;
   }
 
   // how to draw the block on the screen
   void draw()
   {
-    strokeWeight(2);
-    stroke(255, 150, 0, 25);
+    strokeWeight(1);
+    stroke(0);
     fill(blockColor);
     rect(blockX, blockY, blockWidth, blockHeight);
   }
@@ -110,5 +113,9 @@ class Bricks
 
     return false;
   }
+  
+  int retbrickOn()
+  {
+      return brickOn;
+  }
 }
-
