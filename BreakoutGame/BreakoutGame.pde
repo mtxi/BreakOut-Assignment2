@@ -19,6 +19,7 @@ boolean active = false; // switch if game is active
 int win = 0;
 
 Life yourlife;
+mainScreen menu;
 
 void setup()
 {
@@ -28,6 +29,7 @@ void setup()
   setupBricks();
   font = loadFont("JuiceITC-Regular-48.vlw");
   yourlife = new Life();
+  menu = new mainScreen();
 }
 
 // bricks variables
@@ -70,7 +72,7 @@ void draw()
 
   if (mode==0)
   {
-    mainScreen();
+    menu.display();
   }
  if (mode==1) 
   {
@@ -103,7 +105,10 @@ void draw()
   {
     pause();
   }
-  
+  else if (mode==5)
+  {
+      menu.showControl();
+  }
 }
 
 void keyPressed()
@@ -237,17 +242,7 @@ void titleText(String text, float size, float y)
 }
 
 // default screen when starting program
-void mainScreen()
-{
-  centX = width/2;
-  centY = height/2;
-  background(0);
-  fill(255);
-  textAlign(CENTER);
-  titleText("BREAKOUT GAME", 50, 100);
-  titleText("based on the classic arcade game", 50, 200);
-  fill(173, 187, 255);
-}
+
 
 // generally called to display any text
 void displayText(String message, int x, int y, boolean Centered)
