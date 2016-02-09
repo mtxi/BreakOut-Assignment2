@@ -19,6 +19,7 @@ boolean active = false; // switch if game is active
 int win = 0;
 
 Life yourlife;
+
 void setup()
 {
   size(winW, winH);
@@ -70,9 +71,6 @@ void draw()
   if (mode==0)
   {
     mainScreen();
-    // reset if just finished a game
-    score = 0;
-    lives = 3;
   }
  if (mode==1) 
   {
@@ -119,6 +117,7 @@ void keyPressed()
       setupBricks();
       score = 0;
       lives = 3;
+      b.move(width/2, height/2);
       mode = 1;
     }
   }
@@ -150,6 +149,11 @@ void mouseClicked()
   if (lives == 0 || mode == 3 || mode == 4)
   {
     mode = 0;
+    score = 0;
+    lives = 3;
+    setupBricks();
+    b.move(width/2,height/2);
+    active = false;
   }
 }
 

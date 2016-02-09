@@ -53,13 +53,14 @@ class Ball
   {
     ballX+=speedX;
     ballY+=speedY;
+    
   }
 
   void move(int X, int Y)
   {
     ballX = X;
     ballY = Y;
-    speedY = -5;
+    speedY = 5;
     speedX = -5;
   }
 }
