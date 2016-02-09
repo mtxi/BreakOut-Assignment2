@@ -11,24 +11,27 @@ int winH = 600; // height
 
 // initialise elements of gameplay
 int score = 0;
-int lives = 3;
+static int lives = 3;
 static int mode = 0;
 float centX, centY;
 PFont font;
 boolean active = false; // switch if game is active
-boolean win;
+int win = 0;
 
+Life yourlife;
 void setup()
 {
   size(winW, winH);
   background(0);
   smooth();
+  setupBricks();
   font = loadFont("JuiceITC-Regular-48.vlw");
+  yourlife = new Life();
 }
 
 // bricks variables
 int brickSpace = 5;
-int numBricks = 5;
+int numBricks = 4;
 int numRowBricks = 3;
 
 int spaceCeiling = 20; // space between first row of bricks + ceiling
@@ -81,14 +84,15 @@ void draw()
       drawBall();
       drawPaddle();
       drawText();
+      yourlife.draw();
+      
+       if(BagOfBricks.size()<1)
+        {
+            fill(0, 125, 0);
+            displayText("Winner", width/2, height/2, true);
+            mode = 4;
+        }
     } 
-    else if(BagOfBricks.size()<1)
-    {
-        mode = 4;
-        fill(0, 125, 0);
-        displayText("Winner", width/2, height/2, true);
-        setupBricks();   
-    }
     else
     {
       mode = 3;
@@ -174,15 +178,15 @@ void drawBricks()
     if (brick.collidesWith(b))
     {
       brick.blockColor = color(random(0,255));
-      score+=10;
+      score+=2;
       brick.brickOn -= 1;
       
       if (brick.retbrickOn() == 0)
       {
           BagOfBricks.remove(brick);
+          score+=5;
       }
     }
-    
   }
 }
 
@@ -195,6 +199,11 @@ void drawBall()
   {
     lives --;
     b.move(width/2, height/2);
+  }
+  
+  if (win > 0)
+  {
+      b.move(width/2, height/2);
   }
 }
 
