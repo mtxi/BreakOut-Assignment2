@@ -14,6 +14,7 @@ class Life
          return lives;
      }
      
+     // draw life icons
      void draw()
      {
        for (int i = 0; i < yourlives(); i++)

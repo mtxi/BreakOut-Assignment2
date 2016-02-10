@@ -29,7 +29,7 @@ void setup()
   background(0);
   smooth();
   setupBricks();
-  font = loadFont("JuiceITC-Regular-48.vlw");
+  font = loadFont("Monospaced.bold-36.vlw");
   yourlife = new Life();
   menu = new mainScreen();
   b = new Ball(ballStartX, ballStartY, ballWidth, ballColor);
@@ -249,7 +249,7 @@ void drawText()
 // function for creating text in main screen
 void titleText(String text, float size, float y)
 {
-  textFont(font, 40);
+  textFont(font, 30);
   float x = width * 0.5f;
   text(text, x, y);
 }
@@ -269,7 +269,7 @@ void displayText(String message, int x, int y, boolean Centered)
     textX = (width)/2;
   }
   int textY = y;
-  textFont(font,30);
+  textFont(font,18);
   text(name, textX, textY);
 }
 

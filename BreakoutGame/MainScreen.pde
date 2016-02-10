@@ -4,7 +4,7 @@ class mainScreen
   int y = 100;
   int rectX = 190;
   int rectY = 260;
-  int rectWidth = 400;
+  int rectWidth = 425;
   int rectHeight = 200;
 
   void display()
