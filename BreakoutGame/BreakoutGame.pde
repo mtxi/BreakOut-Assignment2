@@ -17,9 +17,11 @@ float centX, centY;
 PFont font;
 boolean active = false; // switch if game is active
 int win = 0;
+int level = 1;
 
 Life yourlife;
 mainScreen menu;
+Bricks update;
 
 void setup()
 {
@@ -30,6 +32,7 @@ void setup()
   font = loadFont("JuiceITC-Regular-48.vlw");
   yourlife = new Life();
   menu = new mainScreen();
+  b = new Ball(ballStartX, ballStartY, ballWidth, ballColor);
 }
 
 // bricks variables
@@ -37,9 +40,9 @@ int brickSpace = 5;
 int numBricks = 5;
 int numRowBricks = 3;
 
-int spaceCeiling = 20; // space between first row of bricks + ceiling
+int spaceCeiling = 40; // space between first row of bricks + ceiling
 float brickWidth = (winW-(numBricks-2)*brickSpace)/numBricks;
-float brickHeight = 10;
+float brickHeight = 15;
 color brickColors[] = {
   color(255, 0, 0), color(255, 125, 0), color(255, 255, 0), 
   color(0, 255, 0), color(0, 0, 255), color(125, 0, 125), color(255, 0, 0), 
@@ -70,41 +73,42 @@ Bricks paddle = new Bricks(paddleX, paddleY, paddleWidth, paddleHeight, paddleCo
 void draw()
 {
 
-  if (mode==0)
+  switch(mode)
   {
-    menu.display();
-    menu.showControls();
-  }
- if (mode==1) 
-  {
-    if (lives>0)
-    {
-      active = true;
-      background(6,29,49);
-      drawBricks();
-      drawBall();
-      drawPaddle();
-      drawText();
-      yourlife.draw();
-      
-       if(BagOfBricks.size()<1)
-        {
-            fill(0, 125, 0);
-            displayText("Winner", width/2, height/2, true);
-            mode = 4;
-        }
-    } 
-    else
-    {
-      mode = 3;
-      drawLose();
-      setupBricks();
-    }
-  }
-   
- if (mode==2)
-  {
-    pause();
+    
+    case 0:
+      menu.display();
+      menu.showControls();
+      break;
+   case 1:
+      if (lives>0)
+      {
+        active = true;
+        background(6,29,49);
+        drawBricks();
+        drawBall();
+        drawPaddle();
+        drawText();
+        yourlife.draw();
+        
+         if(BagOfBricks.size()<1)
+          {
+              mode = 4;
+              fill(0, 125, 0);
+              displayText("Winner", width/2, height/2, true);
+              level += 1;
+          }
+      }
+      else
+      {
+        mode = 3;
+        drawLose();
+        setupBricks();
+      }
+      break;
+   case 2:
+      pause();
+      break;
   }
 }
 
@@ -116,11 +120,19 @@ void keyPressed()
   {
     if (key == ' ')
     {
-      setupBricks();
+      BagOfBricks = new ArrayList();       setupBricks();
       score = 0;
       lives = 3;
       b.move(width/2, height/2);
       mode = 1;
+      
+      if(level > 1)
+      {
+          setupBricks();
+          b.speedY *= -1.2;
+          b.speedX *= 1.2;
+          
+      }
     }
   }
     
@@ -155,7 +167,6 @@ void mouseClicked()
     lives = 3;
     setupBricks();
     b.move(width/2,height/2);
-    active = false;
   }
 }
 
@@ -183,6 +194,10 @@ void drawBricks()
     brick.draw();
     if (brick.collidesWith(b))
     {
+      if (level > 1)
+      {
+          brick.brickOn = brick.brickOn + 1;
+      }
       brick.blockColor = color(random(0,255));
       score = score + 2;
       brick.brickOn -= 1;
@@ -222,10 +237,13 @@ void drawPaddle()
 
 
 void drawText()
-{
+{ 
+  stroke(255);
+  line(33, height-33, width-33, height-33);
   fill(0, 125, 125);
-  displayText("Score: " + score, 0, height, true);
-  displayText("Lives: " + lives, 2*width/3, height, false);
+  displayText("Score: " + score, 300, height-5, false);
+  displayText("Lives: " + lives, 2*width/3, height-5, false);
+  displayText("LEVEL: " + level, 50, (height - 5), true);
   
 }
 

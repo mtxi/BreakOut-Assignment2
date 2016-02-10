@@ -1,4 +1,4 @@
-/* Block class */
+/* Brick class */
 
 class Bricks
 {
@@ -19,7 +19,8 @@ class Bricks
     blockHeight = Height;
     blockColor = Color;
     
-    brickOn = 2;
+    brickOn = 1;
+    
   }
 
   // how to draw the block on the screen
@@ -57,22 +58,10 @@ class Bricks
     }
   }
 
-  // change the number of times one block can be hit
-  void setMaxHits(int numHits)
-  {
-    maxHits=numHits;
-    hits=maxHits;
-  }
 
-  // if the brick can be hit more than once
-  // if brick needs to be removed, return 0
+  // boolean 
 
-  int getHits()
-  {
-    return hits;
-  }
-
-  // boolean if it collides with ball
+  // change the number of times one block can be hitif it collides with ball
   boolean collidesWith(Ball b)
   {
     // collides with bottom of block

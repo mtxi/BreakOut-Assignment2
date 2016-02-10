@@ -5,7 +5,7 @@ class Ball
   float ballWidth;
   float ballX, ballY;
   color ballColor;
-  float speedX = -5;
+  float speedX = 5;
   float speedY = -5;
 
   // ball constructor
