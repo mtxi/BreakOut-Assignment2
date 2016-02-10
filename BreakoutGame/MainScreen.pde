@@ -26,9 +26,9 @@ class mainScreen
     fill(200);
     rect(rectX, rectY, rectWidth, rectHeight);
     fill(6, 15, 103);
-    displayText("SPACEBAR: start game / reset", x, y+240, true);
-    displayText("SHIFT: pause game", x, y+270, true);
-    displayText("MOUSE CLICK to go back to menu", x, y+300, true);
+    displayText("SPACEBAR: start game / next level", x+5, y+240, true);
+    displayText("SHIFT: pause game", x+5, y+270, true);
+    displayText("CLICK to go back to menu (reset)", x+5, y+300, true);
   }
 }
 
