@@ -128,10 +128,11 @@ void keyPressed()
       
       if(level > 1)
       {
+          // reset bricks
           setupBricks();
+          // increased speed to ball -> more difficult level
           b.speedY *= -1.2;
-          b.speedX *= 1.2;
-          
+          b.speedX *= 1.2; 
       }
     }
   }
@@ -192,12 +193,10 @@ void drawBricks()
   {
     Bricks brick = BagOfBricks.get(brickNo);
     brick.draw();
+    
     if (brick.collidesWith(b))
     {
-      if (level > 1)
-      {
-          brick.brickOn = brick.brickOn + 1;
-      }
+      
       brick.blockColor = color(random(0,255));
       score = score + 2;
       brick.brickOn -= 1;

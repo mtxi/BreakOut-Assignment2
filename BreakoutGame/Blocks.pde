@@ -19,7 +19,14 @@ class Bricks
     blockHeight = Height;
     blockColor = Color;
     
+    // max amount of hits for brick to be removed
     brickOn = 1;
+    
+    // if progresses to level 2+ , increase the max hits for the bricks to disappear
+    if (level > 1)
+    {
+        brickOn += 1;
+    }
     
   }
 
