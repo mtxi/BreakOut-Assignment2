@@ -249,7 +249,7 @@ void drawText()
 // function for creating text in main screen
 void titleText(String text, float size, float y)
 {
-  textFont(font, 30);
+  textFont(font, 40);
   float x = width * 0.5f;
   text(text, x, y);
 }

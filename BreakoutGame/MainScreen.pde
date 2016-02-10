@@ -14,9 +14,7 @@ class mainScreen
     textAlign(CENTER);
     textSize(100);
 
-    titleText("BREAKOUT GAME", x, y);
-    textSize(20);
-    titleText("based on the classic arcade game", 50, y*2);
+    titleText("BREAKOUT", x, y*2);
   }
 
   void showControls()
@@ -25,7 +23,7 @@ class mainScreen
     textAlign(CENTER);
     textFont(font, 30);
     strokeWeight(2);
-    fill(255);
+    fill(200);
     rect(rectX, rectY, rectWidth, rectHeight);
     fill(6, 15, 103);
     displayText("SPACEBAR: start game / reset", x, y+240, true);
