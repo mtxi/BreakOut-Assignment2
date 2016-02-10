@@ -18,6 +18,7 @@ PFont font;
 boolean active = false; // switch if game is active
 int win = 0;
 int level = 1;
+int maxLevel = 3;
 
 Life yourlife;
 mainScreen menu;
@@ -102,6 +103,13 @@ void draw()
               mode = 4;
           }
       }
+      else if (level == maxLevel)
+      {
+          fill(255);
+          displayText("Cogratulations!!!", width/2, height/2, true);
+          mode = 5;
+          level = 1;
+      }
       else
       {
         mode = 3;
@@ -161,7 +169,7 @@ void keyPressed()
 // click to go back to main menu
 void mouseClicked()
 {
-  if (lives == 0 || mode == 4)
+  if (lives == 0 || mode == 4 || mode = 5)
   {
     mode = 0;
     score = 0;
@@ -193,7 +201,7 @@ void drawBricks()
   {
     Bricks brick = BagOfBricks.get(brickNo);
     brick.draw();
-    
+
     if (brick.collidesWith(b))
     {
       
@@ -205,7 +213,7 @@ void drawBricks()
       {
           BagOfBricks.remove(brick);
       }
-      else if (BagOfBricks.size() < 13)
+      else if (BagOfBricks.size() < 20)
       {
           extra.extraLife();
       }
