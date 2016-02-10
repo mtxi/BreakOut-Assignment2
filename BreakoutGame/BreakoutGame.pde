@@ -1,10 +1,10 @@
 /* Code for the classic arcade game Break Out Game - ASSIGNMENT #2 */
 
 /* CONTROLS:
-  - SpaceBar: start game / retry (if lost/won)
-  - SHIFT: pause game / resume (can also use any key to resume)
-  - CLICK: return to main screen (if game is over)
-*/
+ - SpaceBar: start game / retry (if lost/won)
+ - SHIFT: pause game / resume (can also use any key to resume)
+ - CLICK: return to main screen (if game is over)
+ */
 
 int winW = 800; // width
 int winH = 600; // height 
@@ -34,7 +34,6 @@ void setup()
   yourlife = new Life();
   menu = new mainScreen();
   b = new Ball(ballStartX, ballStartY, ballWidth, ballColor);
-
 }
 
 // bricks variables
@@ -78,48 +77,52 @@ void draw()
 
   switch(mode)
   {
-    
-    case 0:
-      menu.display();
-      menu.showControls();
-      level = 1;
-      break;
-   case 1:
-      if (lives>0)
+
+  case 0:
+    menu.display();
+    menu.showControls();
+    level = 1;
+    break;
+  case 1:
+    if (lives>0)
+    {
+      active = true;
+      background(6, 29, 49);
+      drawBricks();
+      drawBall();
+      drawPaddle();
+      drawText();
+      yourlife.draw();
+
+      if (BagOfBricks.size()<1)
       {
-        active = true;
-        background(6,29,49);
-        drawBricks();
-        drawBall();
-        drawPaddle();
-        drawText();
-        yourlife.draw();
-        
-         if(BagOfBricks.size()<1 || level != 3)
-          {
-              fill(0, 125, 0);
-              displayText("Winner! SPACEBAR to the next level", width/2, height/2, true);
-              level += 1;
-              mode = 4;
-          }
-      }
-      else if (level == maxLevel)
-      {
+        fill(0, 125, 0);
+        if (level < 3)
+        {
+          displayText("Winner! SPACEBAR to the next level", width/2, height/2, true);
+        }
+        level += 1;
+        mode = 4;
+        if (level == maxLevel)
+        {
           fill(255);
           displayText("Cogratulations!!!", width/2, height/2, true);
           mode = 5;
           level = 1;
-      }
-      else
+        }
+      } 
+    } 
+    else
       {
         mode = 3;
         drawLose();
         setupBricks();
       }
-      break;
-   case 2:
-      pause();
-      break;
+      
+    break;
+  case 2:
+    pause();
+    break;
   }
 }
 
@@ -136,29 +139,25 @@ void keyPressed()
       score = 0;
       b.move(width/2, height/2);
       mode = 1;
-      
     }
   }
-    
-  
+
+
   if (active)
   {
-      // press SHIFT to pause game
-      if (key==CODED)
+    // press SHIFT to pause game
+    if (key==CODED)
+    {
+      if (keyCode == SHIFT)
       {
-        if (keyCode == SHIFT)
-        {
-            active = false;
-            mode = 2;
-        }
+        active = false;
+        mode = 2;
       }
-      
-  }
-  else // press ANY key to resume game
+    }
+  } else // press ANY key to resume game
   {
-      mode = 1;
+    mode = 1;
   }
-
 }
 
 // click to go back to main menu
@@ -170,7 +169,7 @@ void mouseClicked()
     score = 0;
     lives = 3;
     setupBricks();
-    b.move(width/2,height/2);
+    b.move(width/2, height/2);
   }
 }
 
@@ -196,22 +195,21 @@ void drawBricks()
   {
     Bricks brick = BagOfBricks.get(brickNo);
     brick.draw();
-fill(255);
+    fill(255);
     displayText("HITS PER BRICK: " + brick.brickOn, 100, height - 570, true);
     if (brick.collidesWith(b))
     {
-      
-      brick.blockColor = color(random(0,255));
+
+      brick.blockColor = color(random(0, 255));
       score = score + 2;
       brick.brickOn -= 1;
-      
+
       if (brick.retbrickOn() == 0)
       {
-          BagOfBricks.remove(brick);
-      }
-      else if (BagOfBricks.size() < 20)
+        BagOfBricks.remove(brick);
+      } else if (BagOfBricks.size() < 20)
       {
-          extra.extraLife();
+        extra.extraLife();
       }
     }
   }
@@ -227,16 +225,11 @@ void drawBall()
     lives --;
     b.move(width/2, height/2);
   }
-  
+
   if (win > 0)
   {
-      b.move(width/2, height/2);
+    b.move(width/2, height/2);
   }
-   else if (level > 1)
-    {
-        b.speedY+=5;
-        b.speedX+=5;
-    }
 }
 
 // draws the paddle to control
@@ -256,7 +249,6 @@ void drawText()
   displayText("Score: " + score, 400, height-5, false);
 
   displayText("LEVEL: " + level, 100, (height - 5), false);
-  
 }
 
 // function for creating text in main screen
@@ -282,7 +274,7 @@ void displayText(String message, int x, int y, boolean Centered)
     textX = (width)/2;
   }
   int textY = y;
-  textFont(font,18);
+  textFont(font, 18);
   text(name, textX, textY);
 }
 
@@ -305,3 +297,4 @@ void drawLose()
     displayText("You lose! Press spaceBar to retry or click to menu", width/2, height/2, true);
   }
 }
+
