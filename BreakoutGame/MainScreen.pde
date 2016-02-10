@@ -9,26 +9,24 @@ class mainScreen
       titleText("BREAKOUT GAME", 50, 100);
       textSize(20);
       titleText("based on the classic arcade game", 50, 200);
-      fill(173, 187, 255);
-      titleText("Press B to show controls", 50, 300);
     }
     
-    void keyPressed()
+    void showControls()
     {
-        if (key == CODED)
-        {
-            if(keyCode == DOWN)
-            {
-                mode = 5;
-            }
-        }
-    }
-    
-    void showControl()
-    {
-        background(0);
+        int rectX = 190;
+        int rectY = 260;
+        int rectWidth = 400;
+        int rectHeight = 200;
         fill(255);
         textAlign(CENTER);
-        titleText("SPACEBAR to start game / reset after", 50, 100);
+        textFont(font,30);
+        strokeWeight(2);
+        fill(255);
+        rect(rectX, rectY, rectWidth, rectHeight);
+        fill(6,15,103);
+        displayText("SPACEBAR: start game / reset", 50, 340, true);
+        displayText("SHIFT: pause game", 50, 370,true);
+        displayText("MOUSE CLICK to go back to menu", 50,400,true);
     }
+    
 }

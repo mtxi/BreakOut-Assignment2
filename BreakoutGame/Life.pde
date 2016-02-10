@@ -11,7 +11,7 @@ class Life
      
      int yourlives()
      {
-         return BreakoutGame.lives;
+         return lives;
      }
      
      void draw()

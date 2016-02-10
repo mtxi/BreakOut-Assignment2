@@ -34,7 +34,7 @@ void setup()
 
 // bricks variables
 int brickSpace = 5;
-int numBricks = 4;
+int numBricks = 5;
 int numRowBricks = 3;
 
 int spaceCeiling = 20; // space between first row of bricks + ceiling
@@ -46,7 +46,7 @@ color brickColors[] = {
   color(255, 125, 0), color(255, 255, 0), color(0, 255, 0), color(0, 0, 255)
 };
 
-color brickColor = color(255, 255, 0);
+color brickColor = color(255, 0, 255);
 
 ArrayList<Bricks> BagOfBricks = new ArrayList<Bricks>();
 
@@ -73,6 +73,7 @@ void draw()
   if (mode==0)
   {
     menu.display();
+    menu.showControls();
   }
  if (mode==1) 
   {
@@ -104,10 +105,6 @@ void draw()
  if (mode==2)
   {
     pause();
-  }
-  else if (mode==5)
-  {
-      menu.showControl();
   }
 }
 
@@ -151,7 +148,7 @@ void keyPressed()
 // click to go back to main menu
 void mouseClicked()
 {
-  if (lives == 0 || mode == 3 || mode == 4)
+  if (lives == 0 || mode == 4)
   {
     mode = 0;
     score = 0;
@@ -187,13 +184,12 @@ void drawBricks()
     if (brick.collidesWith(b))
     {
       brick.blockColor = color(random(0,255));
-      score+=2;
+      score = score + 2;
       brick.brickOn -= 1;
       
       if (brick.retbrickOn() == 0)
       {
           BagOfBricks.remove(brick);
-          score+=5;
       }
     }
   }
@@ -256,6 +252,7 @@ void displayText(String message, int x, int y, boolean Centered)
     textX = (width)/2;
   }
   int textY = y;
+  textFont(font,30);
   text(name, textX, textY);
 }
 
