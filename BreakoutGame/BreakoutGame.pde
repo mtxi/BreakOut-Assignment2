@@ -240,9 +240,9 @@ void drawText()
   stroke(255);
   line(33, height-33, width-33, height-33);
   fill(0, 125, 125);
-  displayText("Score: " + score, 300, height-5, false);
-  displayText("Lives: " + lives, 2*width/3, height-5, false);
-  displayText("LEVEL: " + level, 50, (height - 5), true);
+  displayText("Score: " + score, 400, height-5, false);
+
+  displayText("LEVEL: " + level, 100, (height - 5), false);
   
 }
 

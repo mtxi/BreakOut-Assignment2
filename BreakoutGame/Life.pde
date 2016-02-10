@@ -21,7 +21,7 @@ class Life
            float x = (lifeSize*i) + width/1.4;
            float y = 2*width/3;
            
-           image(star,x+5,y+38,lifeSize,lifeSize);
+           image(star,x+70,y+38,lifeSize,lifeSize);
        }
      }
 }
