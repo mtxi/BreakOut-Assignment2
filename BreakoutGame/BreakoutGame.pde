@@ -105,6 +105,7 @@ void draw()
         mode = 4;
         if (level == maxLevel)
         {
+          background(0);
           fill(255);
           displayText("Cogratulations!!!", width/2, height/2, true);
           mode = 5;
@@ -115,7 +116,7 @@ void draw()
     else
       {
         mode = 3;
-        drawLose();
+        gameOver();
         setupBricks();
       }
       
@@ -289,12 +290,12 @@ void pause()
 }
 
 // display message when player loses
-void drawLose()
+void gameOver()
 {
   if (BagOfBricks.size()>0)
   {
     fill(255);
-    displayText("You lose! Press spaceBar to retry or click to menu", width/2, height/2, true);
+    displayText("You lose! Click to go home!", width/2, height/2, true);
   }
 }
 
