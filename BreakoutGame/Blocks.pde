@@ -23,7 +23,7 @@ class Bricks
     brickOn = 1;
     
     // if progresses to level 2+ , increase the max hits for the bricks to disappear
-    while (level > 1)
+    if (level > 1)
     {
         brickOn += 1;
     }

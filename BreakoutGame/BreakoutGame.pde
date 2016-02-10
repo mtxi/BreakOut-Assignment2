@@ -22,7 +22,6 @@ int level = 1;
 Life yourlife;
 mainScreen menu;
 Bricks update;
-PowerUp extra;
 
 void setup()
 {
@@ -34,7 +33,7 @@ void setup()
   yourlife = new Life();
   menu = new mainScreen();
   b = new Ball(ballStartX, ballStartY, ballWidth, ballColor);
-  extra = new PowerUp();
+
 }
 
 // bricks variables
@@ -62,6 +61,7 @@ float ballStartY = winH/2;
 color ballColor = color(255, 0, 0);
 
 Ball b = new Ball(ballStartX, ballStartY, ballWidth, ballColor);
+PowerUp extra = new PowerUp();
 
 // variables for controlling the paddle
 int paddleX = winW / 2;
@@ -81,6 +81,7 @@ void draw()
     case 0:
       menu.display();
       menu.showControls();
+      level = 1;
       break;
    case 1:
       if (lives>0)
@@ -122,9 +123,9 @@ void keyPressed()
   {
     if (key == ' ')
     {
-      BagOfBricks = new ArrayList();       setupBricks();
+      BagOfBricks = new ArrayList();       
+      setupBricks();
       score = 0;
-      lives = 3;
       b.move(width/2, height/2);
       mode = 1;
       
@@ -135,10 +136,6 @@ void keyPressed()
           // increased speed to ball -> more difficult level
           b.speedY *= -1.2;
           b.speedX *= 1.2;
-          if (lives < 3)
-          {
-              extra.addLife();
-          }
       }
     }
   }
@@ -210,6 +207,10 @@ void drawBricks()
       if (brick.retbrickOn() == 0)
       {
           BagOfBricks.remove(brick);
+      }
+      else if (BagOfBricks.size() < 13)
+      {
+          extra.extraLife();
       }
     }
   }

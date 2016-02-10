@@ -1,13 +1,13 @@
 class PowerUp
 {
-    int powerUp = 0;
-    
-    void addLife()
+    void extraLife()
     {
-            if (BagOfBricks.size()<20)
-            {
-                powerUp = 1;
-                lives++;
-            }
+       if (level > 1)
+       {
+          if (lives == 1)
+          {
+              lives++;
+          }
+       }
     }
 }
