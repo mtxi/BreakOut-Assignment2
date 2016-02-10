@@ -63,8 +63,8 @@ class Ball
   {
     ballX = X;
     ballY = Y;
-    speedY = 5;
-    speedX = -5;
+    speedY = 10;
+    speedX = -10;
     
   }
 }

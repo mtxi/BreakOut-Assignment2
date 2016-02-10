@@ -68,7 +68,7 @@ PowerUp extra = new PowerUp();
 int paddleX = winW / 2;
 int paddleY = winH - 50;
 int paddleHeight = 20;
-int paddleWidth = 70;
+int paddleWidth = 100;
 color paddleColor = color(255, 0, 255);
 
 Bricks paddle = new Bricks(paddleX, paddleY, paddleWidth, paddleHeight, paddleColor);
@@ -98,7 +98,7 @@ void draw()
          if(BagOfBricks.size()<1)
           {
               fill(0, 125, 0);
-              displayText("Winner", width/2, height/2, true);
+              displayText("Winner! SPACEBAR to the next level", width/2, height/2, true);
               level += 1;
               mode = 4;
           }
@@ -138,11 +138,6 @@ void keyPressed()
       mode = 1;
       
     }
-    else if (level > 1)
-    {
-        b.speedY*=2;
-        b.speedX*=2;
-    }
   }
     
   
@@ -169,7 +164,7 @@ void keyPressed()
 // click to go back to main menu
 void mouseClicked()
 {
-  if (lives == 0 || mode == 4 || mode = 5)
+  if (lives == 0 || mode == 4 || mode == 5)
   {
     mode = 0;
     score = 0;
@@ -201,7 +196,8 @@ void drawBricks()
   {
     Bricks brick = BagOfBricks.get(brickNo);
     brick.draw();
-
+fill(255);
+    displayText("HITS PER BRICK: " + brick.brickOn, 100, height - 570, true);
     if (brick.collidesWith(b))
     {
       
@@ -236,6 +232,11 @@ void drawBall()
   {
       b.move(width/2, height/2);
   }
+   else if (level > 1)
+    {
+        b.speedY+=5;
+        b.speedX+=5;
+    }
 }
 
 // draws the paddle to control
