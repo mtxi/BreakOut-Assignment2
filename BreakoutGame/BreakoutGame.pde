@@ -55,7 +55,7 @@ color brickColor = color(255, 0, 255);
 ArrayList<Bricks> BagOfBricks = new ArrayList<Bricks>();
 
 // initialise variables for controlling Ball object
-int ballWidth = 16;
+int ballWidth = 18;
 float ballStartX = random(winW);
 float ballStartY = winH/2;
 color ballColor = color(255, 0, 0);
@@ -96,10 +96,10 @@ void draw()
         
          if(BagOfBricks.size()<1)
           {
-              mode = 4;
               fill(0, 125, 0);
               displayText("Winner", width/2, height/2, true);
               level += 1;
+              mode = 4;
           }
       }
       else
@@ -134,8 +134,8 @@ void keyPressed()
           // reset bricks
           setupBricks();
           // increased speed to ball -> more difficult level
-          b.speedY *= -1.2;
-          b.speedX *= 1.2;
+          b.speedY *= -1.5;
+          b.speedX *= 1.5;
       }
     }
   }

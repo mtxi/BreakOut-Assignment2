@@ -5,8 +5,9 @@ class Ball
   float ballWidth;
   float ballX, ballY;
   color ballColor;
-  float speedX = 5;
-  float speedY = -5;
+  float speedX = -5;
+  float speedY = 5;
+  PImage ballz;
 
   // ball constructor
   Ball(float x, float y, int Width, color Color)
@@ -20,9 +21,10 @@ class Ball
   // how to draw the ball on the screen
   void draw()
   {
-    noStroke();
-    fill(ballColor);
-    ellipse(ballX, ballY, ballWidth, ballWidth);
+    smooth();
+    frameRate(80);
+    ballz = loadImage("ball.png");
+    image(ballz,ballX-8,ballY-7,ballWidth-2,ballWidth-2);
   }
 
   // bouncing the ball
