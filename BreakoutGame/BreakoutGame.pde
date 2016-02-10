@@ -95,7 +95,7 @@ void draw()
         drawText();
         yourlife.draw();
         
-         if(BagOfBricks.size()<1)
+         if(BagOfBricks.size()<1 || level != 3)
           {
               fill(0, 125, 0);
               displayText("Winner! SPACEBAR to the next level", width/2, height/2, true);
