@@ -22,6 +22,7 @@ int level = 1;
 Life yourlife;
 mainScreen menu;
 Bricks update;
+PowerUp extra;
 
 void setup()
 {
@@ -33,6 +34,7 @@ void setup()
   yourlife = new Life();
   menu = new mainScreen();
   b = new Ball(ballStartX, ballStartY, ballWidth, ballColor);
+  extra = new PowerUp();
 }
 
 // bricks variables
@@ -132,7 +134,11 @@ void keyPressed()
           setupBricks();
           // increased speed to ball -> more difficult level
           b.speedY *= -1.2;
-          b.speedX *= 1.2; 
+          b.speedX *= 1.2;
+          if (lives < 3)
+          {
+              extra.addLife();
+          }
       }
     }
   }
