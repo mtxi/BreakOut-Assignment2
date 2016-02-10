@@ -7,7 +7,7 @@ class Ball
   color ballColor;
   float speedX = -5;
   float speedY = 5;
-  PImage ballz;
+  PImage ball;
 
   // ball constructor
   Ball(float x, float y, int Width, color Color)
@@ -23,8 +23,9 @@ class Ball
   {
     smooth();
     frameRate(80);
-    ballz = loadImage("ball.png");
-    image(ballz,ballX-8,ballY-7,ballWidth-2,ballWidth-2);
+    ball = loadImage("ball.png");
+    image(ball,ballX-8,ballY-7,ballWidth-2,ballWidth-2);
+    
   }
 
   // bouncing the ball
@@ -64,6 +65,7 @@ class Ball
     ballY = Y;
     speedY = 5;
     speedX = -5;
+    
   }
 }
 

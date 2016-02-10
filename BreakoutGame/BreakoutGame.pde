@@ -129,14 +129,11 @@ void keyPressed()
       b.move(width/2, height/2);
       mode = 1;
       
-      if(level > 1)
-      {
-          // reset bricks
-          setupBricks();
-          // increased speed to ball -> more difficult level
-          b.speedY *= -1.5;
-          b.speedX *= 1.5;
-      }
+    }
+    else if (level > 1)
+    {
+        b.speedY*=2;
+        b.speedX*=2;
     }
   }
     

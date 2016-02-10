@@ -37,6 +37,7 @@ class Bricks
     stroke(0);
     fill(blockColor);
     rect(blockX, blockY, blockWidth, blockHeight);
+    
   }
 
   void move(int X, int Y)
